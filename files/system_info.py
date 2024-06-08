@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # system_info.py
 import platform
 

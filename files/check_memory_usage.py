@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # check_memory_usage.py
 import psutil
 

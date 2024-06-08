@@ -69,7 +69,7 @@
         mode: '0755'
 
     - name: Execute each Python script
-      command: "{{ item.path }}"
+      shell: "python3 {{ item.path }}"
       loop: "{{ found_files.files }}"
 
   handlers:
