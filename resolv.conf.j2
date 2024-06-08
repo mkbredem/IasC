@@ -1,0 +1,16 @@
+# /etc/resolv.conf
+
+{% for comment, servers in etc_resolv_conf.nameservers.items() %}
+# {{ comment }}
+{% for server in servers %}
+nameserver {{ server }}
+{% endfor %}
+{% endfor %}
+
+# Search domains (optional, can be customized as needed)
+search {{ etc_resolv_conf.search_domains | join(' ') }}
+
+# Options to improve performance and reliability
+{% for option, value in etc_resolv_conf.options.items() %}
+options {{ option }}:{{ value }}
+{% endfor %}

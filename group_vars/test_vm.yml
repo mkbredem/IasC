@@ -1,0 +1,18 @@
+etc_hosts:
+  - 127.0.0.1   localhost
+  - 192.168.1.100   server1.example.com server1
+  - 192.168.1.101   server2.example.com server2
+
+etc_resolv_conf:
+  nameservers:
+    "Google Public DNS":
+      - 8.8.8.8
+      - 8.8.4.4
+    "Cloudflare Public DNS":
+      - 1.1.1.1
+      - 1.0.0.1
+  search_domains:
+    - example.com
+  options:
+    timeout: 2
+    attempts: 3
