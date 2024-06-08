@@ -6,14 +6,14 @@
   tasks:
     - name: Create /etc/hosts file from template
       template:
-        src: etc_hosts.j2
+        src: templates/etc_hosts.j2
         dest: /etc/hosts
       notify:
         - Restart networking
 
     - name: Create /etc/resolv.conf file from template
       template:
-        src: resolv_conf.j2
+        src: templates/resolv_conf.j2
         dest: /etc/resolv.conf
 
   handlers:
