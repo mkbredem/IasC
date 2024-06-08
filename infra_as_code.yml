@@ -41,13 +41,26 @@
         dest: "{{ destination_dir }}"
         remote_src: yes
 
-    - name: Set execute permissions on all files in the directory
+#    - name: Set execute permissions on all files in the directory
+#      file:
+#        path: "{{ item.path }}"
+#        state: file
+#        mode: '0755'
+#      with_fileglob:
+#        - "{{ destination_dir }}/*"
+
+    - name: Find all files in the destination directory
+      find:
+        paths: "{{ destination_dir }}"
+        recurse: no
+      register: found_files
+
+    - name: Set execute permissions on all files
       file:
         path: "{{ item.path }}"
         state: file
         mode: '0755'
-      with_fileglob:
-        - "{{ destination_dir }}/*"
+      loop: "{{ found_files.files
 
     - name: Ensure the directory itself has correct permissions
       file:
