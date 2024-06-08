@@ -32,8 +32,11 @@
 
     - name: Ensure unzip is installed
       ansible.builtin.yum:
-        name: unzip
+        name: "{{ item }}"
         state: present
+      loop:
+        - unzip
+        - python3
 
     - name: Unzip scripts.zip in the destination directory
       ansible.builtin.unarchive:
