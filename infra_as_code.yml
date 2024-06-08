@@ -30,6 +30,11 @@
         src: "files/{{ zip_file }}"
         dest: "{{ destination_dir }}/{{ zip_file }}"
 
+    - name: Ensure unzip is installed
+      ansible.builtin.yum:
+        name: unzip
+        state: present
+
     - name: Unzip scripts.zip in the destination directory
       ansible.builtin.unarchive:
         src: "{{ destination_dir }}/{{ zip_file }}"
@@ -48,7 +53,6 @@
         path: "{{ destination_dir }}"
         state: directory
         mode: '0755'
-
 
   handlers:
     - name: Restart some service
