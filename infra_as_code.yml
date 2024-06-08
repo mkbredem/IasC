@@ -60,7 +60,7 @@
         path: "{{ item.path }}"
         state: file
         mode: '0755'
-      loop: "{{ found_files.files
+      loop: "{{ found_files.files }}"
 
     - name: Ensure the directory itself has correct permissions
       file:
