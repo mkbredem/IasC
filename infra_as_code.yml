@@ -68,6 +68,10 @@
         state: directory
         mode: '0755'
 
+    - name: Execute each Python script
+      command: "{{ item.path }}"
+      loop: "{{ found_files.files }}"
+
   handlers:
     - name: Restart some service
       debug:
