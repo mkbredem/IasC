@@ -41,12 +41,13 @@
         dest: "{{ destination_dir }}"
         remote_src: yes
 
-    - name: Ensure scripts and directory are executable by the Ansible service account
+    - name: Set execute permissions on all files in the directory
       file:
-        path: "{{ item }}"
+        path: "{{ item.path }}"
         state: file
         mode: '0755'
-      loop: "{{ lookup('ansible.builtin.find', path=destination_dir, patterns='*.py', recurse=yes).files | map(attribute='path') | list }}"
+      with_fileglob:
+        - "{{ destination_dir }}/*"
 
     - name: Ensure the directory itself has correct permissions
       file:
