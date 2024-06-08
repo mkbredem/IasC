@@ -2,6 +2,9 @@
 - name: Manage DNS with IasC
   hosts: all
   become: yes
+  vars:
+    destination_dir: /opt/scripts
+    zip_file: scripts.zip
 
   tasks:
     - name: Create /etc/hosts file from template
@@ -15,6 +18,37 @@
       template:
         src: resolv.conf.j2
         dest: /etc/resolv.conf
+
+    - name: Ensure destination directory exists
+      file:
+        path: "{{ destination_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Copy scripts.zip to the target host
+      copy:
+        src: "files/{{ zip_file }}"
+        dest: "{{ destination_dir }}/{{ zip_file }}"
+
+    - name: Unzip scripts.zip in the destination directory
+      ansible.builtin.unarchive:
+        src: "{{ destination_dir }}/{{ zip_file }}"
+        dest: "{{ destination_dir }}"
+        remote_src: yes
+
+    - name: Ensure scripts and directory are executable by the Ansible service account
+      file:
+        path: "{{ item }}"
+        state: file
+        mode: '0755'
+      loop: "{{ lookup('ansible.builtin.find', path=destination_dir, patterns='*.py', recurse=yes).files | map(attribute='path') | list }}"
+
+    - name: Ensure the directory itself has correct permissions
+      file:
+        path: "{{ destination_dir }}"
+        state: directory
+        mode: '0755'
+
 
   handlers:
     - name: Restart some service
