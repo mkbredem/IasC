@@ -17,7 +17,6 @@
         dest: /etc/resolv.conf
 
   handlers:
-    - name: Restart networking
-      service:
-        name: network
-        state: restarted
+    - name: Restart some service
+      debug:
+        msg: "You can use handlers to restart some service for changes to take affect.  It will only restart the service if a change is made"
