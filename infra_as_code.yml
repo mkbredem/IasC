@@ -47,14 +47,13 @@
         src: "files/{{ zip_file }}"
         dest: "{{ destination_dir }}/{{ zip_file }}"
 
-    - name: Ensure unzip is installed
+    - name: Ensure packages are installed
       ansible.builtin.yum:
         name: "{{ item }}"
         state: present
       loop:
         - unzip
         - python3
-      tag: init
 
     - name: Unzip scripts.zip in the destination directory
       ansible.builtin.unarchive:
