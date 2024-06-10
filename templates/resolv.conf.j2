@@ -1,4 +1,4 @@
-# /etc/resolv.conf is managed by Ansible - do not edit manually
+# /etc/resolv.conf is managed by Ansible - do not edit manually 
 # "etc_resolve_conf" defined in group/host _vars in https://github.com/mkbredem/IasC repo
 
 {% for comment, servers in etc_resolv_conf.nameservers.items() %}
