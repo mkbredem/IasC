@@ -7,6 +7,23 @@
     zip_file: scripts.zip
 
   tasks:
+    # Content suggestion provided by Ansible Lightspeed
+    #- name: Make "/backups" directory
+    #  ansible.builtin.file:
+    #    path: /backups
+    #    state: directory
+    #    mode: '0755'
+
+    #- name: Backup /etc/hosts and /etc/resolv.conf to "/backups"
+    #  ansible.builtin.copy:
+    #    src: /etc/{{ item }}
+    #    dest: /backups/{{ item }}
+    #    mode: '0644'
+    #    remote_src: true
+    #  loop:
+    #    - hosts
+    #    - resolv.conf
+
     - name: Create /etc/hosts file from template
       template:
         src: hosts.j2
@@ -37,20 +54,13 @@
       loop:
         - unzip
         - python3
+      tag: init
 
     - name: Unzip scripts.zip in the destination directory
       ansible.builtin.unarchive:
         src: "{{ destination_dir }}/{{ zip_file }}"
         dest: "{{ destination_dir }}"
         remote_src: yes
-
-#    - name: Set execute permissions on all files in the directory
-#      file:
-#        path: "{{ item.path }}"
-#        state: file
-#        mode: '0755'
-#      with_fileglob:
-#        - "{{ destination_dir }}/*"
 
     - name: Find all files in the destination directory
       find:
