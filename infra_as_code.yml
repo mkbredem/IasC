@@ -7,23 +7,6 @@
     zip_file: scripts.zip
 
   tasks:
-    # Content suggestion provided by Ansible Lightspeed
-    #- name: Make "/backups" directory
-    #  ansible.builtin.file:
-    #    path: /backups
-    #    state: directory
-    #    mode: '0755'
-
-    #- name: Backup /etc/hosts and /etc/resolv.conf to "/backups"
-    #  ansible.builtin.copy:
-    #    src: /etc/{{ item }}
-    #    dest: /backups/{{ item }}
-    #    mode: '0644'
-    #    remote_src: true
-    #  loop:
-    #    - hosts
-    #    - resolv.conf
-
     - name: Create /etc/hosts file from template
       template:
         src: hosts.j2
@@ -31,10 +14,18 @@
       notify:
         - Restart some service
 
+    - name: Temporarily allow edits to /etc/resolv.conf with chattr
+      ansible.builtin.command: chattr +i /etc/resolv.conf
+      changed_when: false
+
     - name: Create resolv.conf file from template
       template:
         src: resolv.conf.j2
         dest: /etc/resolv.conf
+
+    - name: Make /etc/resolv.conf immutable
+      ansible.builtin.command: chattr -i /etc/resolv.conf
+      changed_when: false
 
     - name: Ensure destination directory exists
       file:
