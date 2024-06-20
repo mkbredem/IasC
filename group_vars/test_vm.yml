@@ -3,6 +3,7 @@ etc_hosts:
   - 192.168.1.100   server1.example.com server1
   - 192.168.1.101   server2.example.com server2
   - 192.168.1.102   server2.example.com server3
+  - '# some comment'
 
 etc_resolv_conf:
   nameservers:
