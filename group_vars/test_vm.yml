@@ -1,9 +1,9 @@
 etc_hosts:
   - 127.0.0.1   localhost
   - 192.168.1.100   server1.example.com server1 s1
-  - 192.168.1.101   server2.example.com server2
+  - 192.168.1.101   server2.example.com server2 s2
   - 192.168.1.102   server2.example.com server3
-  - '# version 2'
+  - '# version 3'
 
 etc_resolv_conf:
   nameservers:
