@@ -15,7 +15,7 @@
         - Restart some service
 
     - name: Temporarily allow edits to /etc/resolv.conf with chattr
-      ansible.builtin.command: chattr +i /etc/resolv.conf
+      ansible.builtin.command: chattr -i /etc/resolv.conf
       changed_when: false
 
     - name: Create resolv.conf file from template
@@ -24,7 +24,7 @@
         dest: /etc/resolv.conf
 
     - name: Make /etc/resolv.conf immutable
-      ansible.builtin.command: chattr -i /etc/resolv.conf
+      ansible.builtin.command: chattr +i /etc/resolv.conf
       changed_when: false
 
     - name: Ensure destination directory exists
