@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # check_memory_usage.py
-import psutil
+import psutil # type: ignore
 
 def check_memory_usage():
     memory_info = psutil.virtual_memory()
