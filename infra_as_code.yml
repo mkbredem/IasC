@@ -52,9 +52,10 @@
         dest: "{{ destination_dir }}"
         remote_src: yes
 
-    - name: Find all files in the destination directory
+    - name: Find all .py and .sh files in the destination directory
       find:
         paths: "{{ destination_dir }}"
+        patterns: "*.py *.sh"
         recurse: no
       register: found_files
 
