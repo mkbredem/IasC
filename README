@@ -1,1 +1,10 @@
 # IasC
+
+To rollback config:
+git clone
+git log
+git checkout -b revert-to-version-# <commit id>
+git checkout main
+git merge --strategy=ours revert-to-version-1
+git checkout revert-to-version-1 .
+git commit -m "Revert to Version 1 state"
